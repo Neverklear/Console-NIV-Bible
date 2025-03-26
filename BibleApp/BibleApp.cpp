@@ -4,6 +4,14 @@
 #include "sqlite_modern_cpp.h"
 using namespace std;
 
+// ANSI color codes for a warm feel
+const string RESET = "\033[0m";
+const string YELLOW = "\033[33m";
+const string CYAN = "\033[36m";
+const string BOLD = "\033[1m";
+const string GREEN = "\033[32m";
+
+
 // Helper function to pause output every few lines
 void pauseForPagination() {
     cout << "Press Enter twice to continue...";
@@ -11,16 +19,24 @@ void pauseForPagination() {
     cin.get();
 }
 
+void displayHeader() {
+    cout << BOLD << YELLOW;
+    cout << "=======================================" << endl;
+    cout << "   Welcome to the Bible App" << endl;
+    cout << "   May peace and wisdom be with you" << endl;
+    cout << "=======================================" << endl;
+    cout << RESET << endl;
+}
+
 void intro() {
-    cout << "Welcome to the Bible App" << endl;
-    cout << "Please select an option" << endl;
+    displayHeader();
+    cout << CYAN << "Please select an option:" << RESET << endl;
     cout << "1. Search for a verse" << endl;
     cout << "2. Search for a word" << endl;
     cout << "3. Search for a phrase" << endl;
     cout << "4. Search for a chapter" << endl;
     cout << "5. Search for a book" << endl << endl;
 }
-
 void searchVerse() {
     cout << "Please enter the book name" << endl;
     string book;
@@ -43,7 +59,7 @@ void searchVerse() {
         for (auto row : db << query) {
             string verseText;
             row >> verseText;
-            cout << verseText << endl;
+            cout << GREEN << verseText << RESET << endl;
         }
     }
     catch (const std::exception& e) {
